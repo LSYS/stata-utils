@@ -22,8 +22,8 @@ program define run_es
 //		Omitted (reference/base) period is hard set to -1 (period before treatment)		//
 //////////////////////////////////////////////////////////////////////////////////////////
 syntax varlist(min=2 max=2 numeric), /// 
-	treattime(varlist) preperiods(real) postperiods(real) ///
-	[fe(string) controls(string) cluster(varlist) confidence(string)]
+	TREATtime(varlist) PREperiods(real) POSTperiods(real) ///
+	[fe(string) CONTrols(string) CLUSTer(varlist) CONFidence(string)]
 
 	local omittedperiod -1
 
