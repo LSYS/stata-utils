@@ -21,7 +21,7 @@ program define run_es
 //	Caveats:																			//
 //		Omitted (reference/base) period is hard set to -1 (period before treatment)		//
 //////////////////////////////////////////////////////////////////////////////////////////
-syntax varlist(min=2 max=2 numeric), /// 
+syntax varlist(min=2 max=2 numeric) [if] [in], /// 
 	TREATtime(varlist) PREperiods(real) POSTperiods(real) ///
 	[fe(string) CONTrols(string) CLUSTer(varlist) CONFidence(string)]
 
@@ -52,10 +52,10 @@ syntax varlist(min=2 max=2 numeric), ///
 	qui xi i.t_to_treat, prefix(_)
 
 	if "`fe'"=="" {
-		qui reg `yvar' _t_to_treat_* `controls', cluster(`cluster')
+		qui reg `yvar' _t_to_treat_* `controls', r cluster(`cluster')
 	}
 	else {
-		qui reghdfe `yvar' _t_to_treat_* `controls', absorb(`fe') cluster(`cluster')
+		qui reghdfe `yvar' _t_to_treat_* `controls', r absorb(`fe') cluster(`cluster')
 	}
 	regsave
 
