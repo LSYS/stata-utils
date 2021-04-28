@@ -11,7 +11,7 @@ version 13 /* That's right... I'm still on Stata 13... */
 	get_pval _b[x] _se[x] e(df_r) 0.001 
 */
 
-capture drop program get_pval
+capture program drop get_pval
 program define get_pval, rclass
 	args coef se df_r round
 	tempvar tstat
