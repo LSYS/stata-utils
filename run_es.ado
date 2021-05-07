@@ -41,7 +41,7 @@ syntax varlist(min=2 max=2 numeric) [if] [in], ///
 		dis in red "Assuming `treattime' (first) var is treated time."
 	}
 
-	qui gen t_to_treat = `tvar' - `treattime'
+	qui cap gen t_to_treat = `tvar' - `treattime'
 	label var t_to_treat "period relative to Day 0"
 
 	local estperiods = `preperiods' + `postperiods'
@@ -55,7 +55,7 @@ syntax varlist(min=2 max=2 numeric) [if] [in], ///
 		qui reg `yvar' _t_to_treat_* `controls', r cluster(`cluster')
 	}
 	else {
-		qui reghdfe `yvar' _t_to_treat_* `controls', r absorb(`fe') cluster(`cluster')
+		qui reghdfe `yvar' _t_to_treat_* `controls', absorb(`fe') cluster(`cluster')
 	}
 	regsave
 
