@@ -11,7 +11,8 @@ program define run_es
 //  (3) Lower CI 																		//
 //	(4) Order variable for plotting (porder) relative to "day 0" 						//
 // 	Syntax: 																			//
-// 		run_es depvar timevar, treattime(var) preperiods(#) postperiods(#) [options]	//
+// 		run_es depvar timevar [if] [in] [weight], 	                                  	//
+//			treattime(var) preperiods(#) postperiods(#) [options]						//
 //	Example:   																			//
 //		use http://pped.org/bacon_example.dta, clear									//												
 //		run_e asmrs year, treattime(_nfd) preperiods(6) postperiods(12) ///				//
@@ -21,7 +22,7 @@ program define run_es
 //	Caveats:																			//
 //		Omitted (reference/base) period is hard set to -1 (period before treatment)		//
 //////////////////////////////////////////////////////////////////////////////////////////
-syntax varlist(min=2 max=2 numeric) [if] [in], /// 
+syntax varlist(min=2 max=2 numeric) [if] [in] [pw fw aw iw], /// 
 	TREATtime(varlist) PREperiods(real) POSTperiods(real) ///
 	[fe(string) CONTrols(string) CLUSTer(varlist) CONFidence(string)]
 
@@ -33,13 +34,15 @@ syntax varlist(min=2 max=2 numeric) [if] [in], ///
 	local count: word count `treattime'  
 	// capture confirm scalar `count'==1
 	if `count'==1 {
-		dis in green "Treated time var is `treattime'"
+		dis in green "Treated time var is: `treattime'"
 	}
 	else {
 		local treattime: word 1 of `treattime'
 		dis in red "Only one treated time variable allowed" 
 		dis in red "Assuming `treattime' (first) var is treated time."
 	}
+
+	local wt [`weight' `exp']
 
 	qui cap gen t_to_treat = `tvar' - `treattime'
 	label var t_to_treat "period relative to Day 0"
@@ -52,10 +55,10 @@ syntax varlist(min=2 max=2 numeric) [if] [in], ///
 	qui xi i.t_to_treat, prefix(_)
 
 	if "`fe'"=="" {
-		qui reg `yvar' _t_to_treat_* `controls', r cluster(`cluster')
+		qui reg `yvar' _t_to_treat_* `controls' `if' `in' `wt', r cluster(`CLUSTer')
 	}
 	else {
-		qui reghdfe `yvar' _t_to_treat_* `controls', absorb(`fe') cluster(`cluster')
+		qui reghdfe `yvar' _t_to_treat_* `controls' `if' `in' `wt', absorb(`fe') cluster(`CLUSTer')
 	}
 	regsave
 
@@ -116,7 +119,10 @@ syntax varlist(min=2 max=2 numeric) [if] [in], ///
 
 	dis in green "Depvar is: `yvar'"
 	dis in green "Time var is: `tvar'"
-	dis in green "Control variables are: `controls'"
-	dis in green "Fixed effects are: `fe'"
+	dis in green "Control variables are: |`controls'|"
+	dis in green "Fixed effects are: |`fe'|"
 	dis in green "Clustering se by: `cluster'"
+	dis in green "if condition: |`if'|"
+	dis in green "in condition: |`in'|"
+	dis in green "Weight: |`weight' `exp'|"
 end
