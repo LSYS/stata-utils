@@ -17,7 +17,7 @@ program define run_es
 //		use http://pped.org/bacon_example.dta, clear									//												
 //		run_e asmrs year, treattime(_nfd) preperiods(6) postperiods(12) ///				//
 //			fe(stfips year) controls(pcinc asmrh cases copop) ///						//
-//			cluster(stfips) confidence(95)												//
+//			cluster(stfips) confidence(95)											    //
 //		twoway (line coef porder) (line uci porder) (line lci porder)					//
 //	Caveats:																			//
 //		Omitted (reference/base) period is hard set to -1 (period before treatment)		//
