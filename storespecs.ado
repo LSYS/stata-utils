@@ -8,8 +8,8 @@ syntax varlist(min=1 numeric), [SPEC_name(string) BInary DEDUPlicate] file(strin
 	// Syntax: 
 	// -------
 	// 		storespecs varlist, spec_name(groups) file(filename)
-	// Example:
-	// --------
+	// MWE:
+	// ----
 	// 		sysuse auto.dta
 	//		reg price weight length
 	//		storespecs weight, spec_name(length) file(_file)
