@@ -2,7 +2,7 @@
 
 My Stata miscellaneous `.ado` programs I use.
 
-Pull into local project directory:
+Pull into my local project directory:
 ```Bash
 cd <project_path>
 
