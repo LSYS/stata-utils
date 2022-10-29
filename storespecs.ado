@@ -1,4 +1,4 @@
-version 13.1
+version 13.1 /* That's right... I'm still on Stata 13... */
 
 cap program drop storespecs
 
@@ -15,6 +15,7 @@ syntax varlist(min=1 numeric), [SPEC_name(string) BInary DEDUPlicate] file(strin
 	//		storespecs weight, spec_name(length) file(_file)
 	//		reg price weight length mpg
 	//		storespecs weight, spec_name(length mpg) file(_file)
+	//		use _file, clear
 	//
 	// BS example:
 	// -----------
