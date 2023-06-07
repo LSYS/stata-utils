@@ -11,4 +11,4 @@ program beep_me
 	}
 end
 
-// beep_me 5
+// beepme 5
