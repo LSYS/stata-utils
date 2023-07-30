@@ -9,6 +9,8 @@ version 13 /* That's right... I'm still on Stata 13... */
 	e.g. To get pval of x rounded off to three decimal places,
 	reg y x 
 	get_pval _b[x] _se[x] e(df_r) 0.001 
+	local pval `r(pval)'
+	dis "`pval'"
 */
 
 capture program drop get_pval
