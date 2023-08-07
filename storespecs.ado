@@ -135,6 +135,6 @@ syntax varlist(min=1 numeric), [SPEC_name(string) BInary DEDUPlicate] file(strin
 		replace spec_id = _n
 	}
 
-	save "`file.dta'", replace
+	save "`file'.dta", replace
 	use `temp', clear
 end
