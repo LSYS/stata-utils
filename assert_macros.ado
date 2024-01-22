@@ -8,7 +8,7 @@ program define assert_macros
 	//
 	// Syntax: 
 	// -------
-	// 		assert_macros macro1 macro2 ...
+	// 		assert_macros "macro1 macro2 ..."
 	// MWE:
 	// ----
 	// 		sysuse auto
