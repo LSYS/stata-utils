@@ -13,9 +13,9 @@ program define tictoc
 		local ix 42
 	}
 
-	if `ix' > 100 {
+	if `ix' < 1 | `ix' > 100 {
 		noisily dis in red "Please choose an integer, 1 through 100"
-		exit
+		exit 42
 	}
 
 	if ("`switch'"=="tic") | ("`switch'"=="on") {

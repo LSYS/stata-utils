@@ -1,6 +1,6 @@
 cap program drop beepme
 
-program beep_me
+program beepme
 	args nbeeps
 	if missing("`nbeeps'") {
 		local nbeeps = 3
