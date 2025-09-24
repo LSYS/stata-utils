@@ -15,9 +15,12 @@ program count_unique, rclass
     //      sysuse auto
     //      count_unique make
     //      return list
-    //////////////////////////////////////////////////////////////////////////////  
+    ////////////////////////////////////////////////////////////////////////////// 
+    preserve
     tempvar i_first
-    bysort `varlist': gen byte `i_first' = (_n==1) & ~missing(`varlist') & `i_use'
+    
+    keep if `i_use'
+    bysort `varlist': gen byte `i_first' = (_n==1) & ~missing(`varlist')
     
     if "`print'"!="" {
         count if `i_first'
@@ -25,6 +28,7 @@ program count_unique, rclass
     else {
         qui count if `i_first'
     }
+    restore
     return scalar uval = r(N)
     display as result r(N)
 end
